@@ -48,7 +48,7 @@
     "search": "node bin/effects.cjs",
     "categories": "node bin/effects.cjs --categories",
     "validate": "node -e \"require('./src/registry.cjs').loadCatalog(); console.log('Catalog validated')\"",
-    "test": "node --test tests/*.test.cjs tests/*.test.js",
+    "test": "node --test",
     "verify": "npm run validate && npm test",
     "build": "npm run verify"
   },
