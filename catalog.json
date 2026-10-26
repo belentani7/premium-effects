@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-23",
+  "verification": "GitHub connected repository metadata: publicly resolvable and not archived on verification date; separate review of license, docs and accessibility required before use.",
+  "entries": [
+    {
+      "id": "threejs",
+      "name": "Three.js",
+      "repo": "mrdoob/three.js",
+      "category": "3d-webgl",
+      "tags": [
+        "3d",
+        "webgl",
+        "rendering",
+        "scene",
+        "shaders"
+      ],
+      "useFor": "Escenas 3D interactivas, cámaras, materiales y composiciones WebGL."
+    },
+    {
+      "id": "gsap",
+      "name": "GSAP",
+      "repo": "greensock/GSAP",
+      "category": "motion",
+      "tags": [
+        "animation",
+        "gsap",
+        "timeline",
+        "scroll",
+        "motion"
+      ],
+      "useFor": "Animaciones coordinadas e interacciones temporales de interfaz."
+    },
+    {
+      "id": "particlesjs",
+      "name": "particles.js",
+      "repo": "VincentGarreau/particles.js",
+      "category": "particles",
+      "tags": [
+        "particles",
+        "canvas",
+        "background",
+        "partículas"
+      ],
+      "useFor": "Partículas de fondo para interfaces y páginas de presentación."
+    },
+    {
+      "id": "p5js",
+      "name": "p5.js",
+      "repo": "processing/p5.js",
+      "category": "creative-coding",
+      "tags": [
+        "generative",
+        "creative coding",
+        "canvas",
+        "art",
+        "arte"
+      ],
+      "useFor": "Experimentos generativos, instalaciones y prototipos visuales."
+    },
+    {
+      "id": "liquid-logo",
+      "name": "Liquid Logo",
+      "repo": "collidingScopes/liquid-logo",
+      "category": "liquid-morph",
+      "tags": [
+        "liquid",
+        "logo",
+        "metal",
+        "morphing"
+      ],
+      "useFor": "Referencias de transformación y materiales líquidos en logotipos."
+    },
+    {
+      "id": "book-of-shaders",
+      "name": "The Book of Shaders",
+      "repo": "patriciogonzalezvivo/thebookofshaders",
+      "category": "shaders",
+      "tags": [
+        "glsl",
+        "shader",
+        "tutorial",
+        "education"
+      ],
+      "useFor": "Aprender y prototipar shaders matemáticos reproducibles."
+    },
+    {
+      "id": "webgl-noise",
+      "name": "WebGL Noise",
+      "repo": "ashima/webgl-noise",
+      "category": "shaders",
+      "tags": [
+        "noise",
+        "glsl",
+        "simplex",
+        "procedural"
+      ],
+      "useFor": "Funciones de ruido procedural para materiales y efectos GLSL."
+    },
+    {
+      "id": "vinaal-portfolio",
+      "name": "Vinaal Portfolio",
+      "repo": "Dark-Vinaal/vinaal_portfolio",
+      "category": "futuristic-ui",
+      "tags": [
+        "cyberpunk",
+        "portfolio",
+        "interface",
+        "futuristic"
+      ],
+      "useFor": "Referencia de lenguaje visual futurista y componentes de portfolio."
+    },
+    {
+      "id": "metal-flow",
+      "name": "MetalFlow",
+      "repo": "Saganaki22/MetalFlow",
+      "category": "liquid-morph",
+      "tags": [
+        "liquid",
+        "metal",
+        "flow",
+        "motion"
+      ],
+      "useFor": "Referencia de superficies metálicas fluidas y transiciones."
+    },
+    {
+      "id": "ascii-logo",
+      "name": "ANIOLegacy ASCII Logo",
+      "repo": "Thakuma07/ANIOLegacyASCIILogo-HoverAnimation",
+      "category": "typography",
+      "tags": [
+        "ascii",
+        "typography",
+        "text",
+        "hover"
+      ],
+      "useFor": "Microinteracciones de texto y efectos visuales de hover."
+    },
+    {
+      "id": "liquid-glass",
+      "name": "LiquidGlass Handbook",
+      "repo": "jaikrishnavj/LiquidGlass-Handbook",
+      "category": "glass-ui",
+      "tags": [
+        "glass",
+        "liquid glass",
+        "morphism",
+        "ui"
+      ],
+      "useFor": "Referencias de materiales vítreos, jerarquía visual y transparencias."
+    }
+  ]
+}

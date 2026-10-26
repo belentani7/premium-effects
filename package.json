@@ -1,8 +1,8 @@
 {
   "name": "premium-effects-registry",
   "version": "1.0.0",
-  "description": "Colección curada de 50+ repos GitHub para efectos visuales premium en frontend — liquid logos, 3D/WebGL, shaders GLSL, GSAP, partículas, cyberpunk UI, creative coding",
-  "type": "skill",
+  "description": "Catálogo local y consultable de referencias visuales GitHub verificadas (11 entradas iniciales; ampliación revisada).",
+  "type": "commonjs",
   "author": "belentani7",
   "license": "MIT",
   "keywords": [
@@ -25,7 +25,7 @@
   "skills": {
     "id": "premium-effects-registry",
     "name": "Premium Effects Registry",
-    "description": "Catalogo curado de los mejores repos GitHub para efectos visuales premium en frontend — 50+ repos organizados por categoria (liquid logos, 3D/WebGL, GLSL, GSAP, particles, cyberpunk, creative coding, scroll, cursor)",
+    "description": "Catalogo offline de 11 referencias GitHub verificadas al 2026-10-23; cada recurso requiere revision de licencia y compatibilidad antes de uso.",
     "triggers": [
       "efectos premium",
       "liquid logo",
@@ -40,5 +40,19 @@
       "awwwards",
       "futuristic design"
     ]
+  },
+  "bin": {
+    "effects": "./bin/effects.cjs"
+  },
+  "scripts": {
+    "search": "node bin/effects.cjs",
+    "categories": "node bin/effects.cjs --categories",
+    "validate": "node -e \"require('./src/registry.cjs').loadCatalog(); console.log('Catalog validated')\"",
+    "test": "node --test",
+    "verify": "npm run validate && npm test",
+    "build": "npm run verify"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
