@@ -55,3 +55,53 @@ test("CLI fails closed on malformed flags", () => {
   assert.equal(p.status,2);
   assert.match(p.stderr,/Limit must be/);
 });
+
+test("catalog rejects unsafe GitHub paths, duplicate repos and terminal controls", () => {
+  const sample = entries[0];
+  const invalid = [
+    { ...sample, repo: "../.." },
+    { ...sample, repo: "owner/.." },
+    { ...sample, repo: "-bad/repo" },
+    { ...sample, name: "\x1b[31mSpoofed" },
+    { ...sample, useFor: "line\nspoof" },
+    { ...sample, tags: ["\u0007bell"] },
+    { ...sample, category: "../shaders" },
+    { ...sample, name: "  " },
+  ];
+  for (const entry of invalid) {
+    assert.throws(() => validateCatalog({ schemaVersion: 1, entries: [entry] }), /Invalid or duplicate/);
+  }
+  assert.throws(() => validateCatalog({
+    schemaVersion: 1,
+    entries: [sample, { ...sample, id: "other", repo: sample.repo.toUpperCase() }],
+  }), /Invalid or duplicate/);
+});
+
+test("CLI rejects missing category and conflicting modes instead of silently succeeding", () => {
+  for (const args of [
+    ["--category", "--json"],
+    ["--category", "--limit", "2"],
+    ["--categories", "shaders"],
+    ["--categories", "--limit", "1"],
+    ["--categories", "--category", "shaders"],
+    ["--limit", "101"],
+  ]) {
+    const result = spawnSync(process.execPath, [cli, ...args], { encoding: "utf8" });
+    assert.equal(result.status, 2, `${args.join(" ")} unexpectedly succeeded`);
+    assert.match(result.stderr, /requires a category|cannot be combined|Limit must be/);
+  }
+});
+
+test("CLI supports JSON category listing and literal dash-prefixed query", () => {
+  const result = spawnSync(process.execPath, [cli, "--categories", "--json"], { encoding: "utf8" });
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(JSON.parse(result.stdout).reduce((sum, row) => sum + row.total, 0), entries.length);
+  const literal = spawnSync(process.execPath, [cli, "--", "-shader"], { encoding: "utf8" });
+  assert.equal(literal.status, 0, literal.stderr);
+  assert.match(literal.stdout, /No verified matching references/);
+});
+
+test("package skill metadata does not advertise nonexistent 50+ entries", () => {
+  const pkg = require("../package.json");
+  assert.doesNotMatch(pkg.skills.description, /50\+/);
+});

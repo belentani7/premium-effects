@@ -3,10 +3,25 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const DEFAULT_CATALOG = path.resolve(__dirname, "..", "catalog.json");
-const repoPattern = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;
+const ownerPattern = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/;
+const namePattern = /^[A-Za-z0-9_.-]{1,100}$/;
+const categoryPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const controlCharacters = /[\u0000-\u001f\u007f]/;
 
 function normalize(value) {
   return String(value ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+}
+
+function validText(value, maxLength) {
+  return typeof value === "string" && value.trim().length > 0 &&
+    value.length <= maxLength && !controlCharacters.test(value);
+}
+
+function validRepo(repo) {
+  if (typeof repo !== "string") return false;
+  const parts = repo.split("/");
+  return parts.length === 2 && ownerPattern.test(parts[0]) &&
+    namePattern.test(parts[1]) && parts[1] !== "." && parts[1] !== "..";
 }
 
 function validateCatalog(data) {
@@ -14,15 +29,19 @@ function validateCatalog(data) {
     throw new TypeError("Invalid premium-effects catalog schema");
   }
   const ids = new Set();
+  const repos = new Set();
   for (const entry of data.entries) {
-    if (!entry || typeof entry.id !== "string" || !/^[a-z0-9-]+$/.test(entry.id) ||
-        typeof entry.name !== "string" || !repoPattern.test(entry.repo) ||
-        typeof entry.category !== "string" || !Array.isArray(entry.tags) ||
-        entry.tags.some(tag => typeof tag !== "string") ||
-        typeof entry.useFor !== "string" || ids.has(entry.id)) {
+    if (!entry || typeof entry !== "object" || Array.isArray(entry) ||
+        typeof entry.id !== "string" || !/^[a-z0-9-]+$/.test(entry.id) ||
+        !validText(entry.name, 120) || !validRepo(entry.repo) ||
+        typeof entry.category !== "string" || !categoryPattern.test(entry.category) ||
+        !Array.isArray(entry.tags) || entry.tags.some(tag => !validText(tag, 80)) ||
+        !validText(entry.useFor, 500) || ids.has(entry.id) ||
+        repos.has(entry.repo.toLowerCase())) {
       throw new TypeError("Invalid or duplicate catalog entry");
     }
     ids.add(entry.id);
+    repos.add(entry.repo.toLowerCase());
   }
   return data;
 }
